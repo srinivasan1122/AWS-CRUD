@@ -44,8 +44,8 @@ function saveData() {
   userDetails.gender = document.getElementById("gender").value;
   userDetails.seat = document.getElementById("seat").value;
 
-  console.log(userDetails);
-  console.log(document.getElementById("UI1").value);
+  // console.log(userDetails);
+  // console.log(document.getElementById("UI1").value);
 
 
 
