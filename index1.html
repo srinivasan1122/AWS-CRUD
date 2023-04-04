@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Train Ticket Booking</title>
+    
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css"
+    /> -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><ion-icon name="train-outline"></ion-icon>IRCTC RAIL</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"><ion-icon name="home-outline"></ion-icon>Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><ion-icon name="help-outline"></ion-icon>About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><ion-icon name="person-outline"></ion-icon>Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav><br>
+    
+    <!-- Button trigger modal -->
+    <div style="text-align: center;">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Book your tickets</button>
+    </div><br>
+
+    <!-- Modal -->
+    <div
+      class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document" style="max-width: 900px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Please enter your details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="from" class="form-label">FROM</label>
+                <select class="form-control" id="from">
+                  <option value="">Select boarding station</option>
+                  <option value="New York">New York</option>
+                  <option value="London">London</option>
+                  <option value="Paris">Paris</option>
+                  <option value="chennai">chennai</option>
+                  <option value="salem">salem</option>
+                  <option value="namakkal">namakkal</option>
+                  <option value="madurai">madurai</option>
+                  <option value="erode">erode</option>
+                  <option value="coimbatore">coimbatore</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="to" class="form-label">TO</label>
+                <select class="form-control" id="to">
+                  <option value="">Select drop-off station</option>
+                  <option value="New York">New York</option>
+                  <option value="London">London</option>
+                  <option value="Paris">Paris</option>
+                  <option value="chennai">chennai</option>
+                  <option value="salem">salem</option>
+                  <option value="namakkal">namakkal</option>
+                  <option value="madurai">madurai</option>
+                  <option value="erode">erode</option>
+                  <option value="coimbatore">coimbatore</option>
+                </select>
+              </div>
+        
+              <div class="mb-3">
+                <label for="to" class="form-label">date</label>
+                <input type="date" class="form-control" id="date" value="" />
+              </div>
+        
+              <div class="mb-3">
+                <label for="first_name" class="form-label">First name</label>
+                <input type="text" class="form-control" id="firstName" value="" placeholder="Enter first name"/>
+                <div class="invalid-feedback">invalid</div>
+                <input type="hidden" id="UI1" />
+              </div>
+              <div class="mb-3">
+                <label for="last_name" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="lastName" value="" placeholder="Enter last name"/>
+              </div>
+        
+              <div class="mb-3">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" class="form-control" id="age" value="" placeholder="Enter age"/>
+              </div>
+              
+              <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-control" id="gender">
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+        
+              <div class="mb-3">
+                <label for="seat" class="form-label">Seat Preference</label>
+                <select class="form-control" id="seat">
+                  <option value="">Select seat preference</option>
+                  <option value="side lower">side lower</option>
+                  <option value="side upper">side upper</option>
+                  <option value="lower">lower</option>
+                  <option value="middle">middle</option>
+                  <option value="upper">upper</option>
+                </select>
+              </div>
+            </form>
+        
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-outline-success" id="btn-save" onclick="saveData()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <table class="table table-hover table-dark" id="myTable">
+      <thead class="thead-dark  w-50 mx-auto">
+        <tr>
+          <!-- <th scope="col">user_id</th> -->
+          <th scope="col">from</th>
+          <th scope="col">to</th>
+          <th scope="col">date</th>
+          <th scope="col">first_name</th>
+          <th scope="col">last_name</th>
+          <th scope="col">age</th>
+          <th scope="col">gender</th>
+          <th scope="col">seat_preference</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </body>
+</html>

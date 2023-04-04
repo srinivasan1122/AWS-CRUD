@@ -1,0 +1,76 @@
+body {
+	background-image: url('wp4740876.jpg');
+	background-size: cover;
+	max-width:100%;
+}
+
+.login-container {
+	background-color: rgba(255, 255, 255, 0.8);
+	margin: 100px auto;
+	padding: 50px;
+	max-width: 400px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+	padding: 10px;
+	margin-bottom: 20px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.b1{
+	text-align: center;
+	border-radius: 30px;
+	border: none;
+	padding: 20px;
+	position: relative;
+	left: 1300px;
+	top: 30px;
+	color: white;
+	background-color: #4CAF50;
+	cursor: pointer;
+}
+input[type="b1"]:hover {
+	background-color: #ced2ce;
+}
+
+.b2 {
+	--c:  #45a049; /* the color*/
+	
+	box-shadow: 0 0 0 .1em inset var(--c); 
+	--_g: linear-gradient(var(--c) 0 0) no-repeat;
+	background: 
+	  var(--_g) calc(var(--_p,0%) - 100%) 0%,
+	  var(--_g) calc(200% - var(--_p,0%)) 0%,
+	  var(--_g) calc(var(--_p,0%) - 100%) 100%,
+	  var(--_g) calc(200% - var(--_p,0%)) 100%;
+	background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+	outline-offset: .1em;
+	transition: background-size .4s, background-position 0s .4s;
+  }
+  .b2:hover {
+	--_p: 100%;
+	transition: background-position .4s, background-size 0s;
+  }
+
+  .b2 {
+	font-family: system-ui, sans-serif;
+	font-size: 15px;
+	cursor: pointer;
+	padding: 10px 60px;
+	font-weight: normal;  
+	border: none;
+	width: 100%;
+  }
