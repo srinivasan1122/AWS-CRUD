@@ -41,12 +41,14 @@
 
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+
     <script src="./index.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><ion-icon name="train-outline"></ion-icon>IRCTC RAIL</a>
+        <a class="navbar-brand" href="#"><i class="fa-solid fa-train"></i>IRCTC RAIL</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -68,7 +70,7 @@
     
     <!-- Button trigger modal -->
     <div style="text-align: center;">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Book your tickets</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Book tickets</button>
     </div><br>
 
     <!-- Modal -->
@@ -160,29 +162,31 @@
           </div>
           <div class="modal-footer">
             <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-            <button class="btn btn-outline-success" id="btn-save" onclick="saveData()">Submit</button>
+            <button class="btn btn-outline-success" id="btn-save" onclick="saveData()" data-dismiss="modal">Submit</button>
           </div>
         </div>
       </div>
     </div>
 
+    <div class="table-responsive container">
+      <table class="table table-hover" id="myTable">
+        <thead class="thead-dark">
+          <tr>
+            <!-- <th scope="col">user_id</th> -->
+            <th scope="col">from</th>
+            <th scope="col">to</th>
+            <th scope="col">date</th>
+            <th scope="col">first_name</th>
+            <th scope="col">last_name</th>
+            <th scope="col">age</th>
+            <th scope="col">gender</th>
+            <th scope="col">seat_preference</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
     
-    <table class="table table-hover table-dark" id="myTable">
-      <thead class="thead-dark  w-50 mx-auto">
-        <tr>
-          <!-- <th scope="col">user_id</th> -->
-          <th scope="col">from</th>
-          <th scope="col">to</th>
-          <th scope="col">date</th>
-          <th scope="col">first_name</th>
-          <th scope="col">last_name</th>
-          <th scope="col">age</th>
-          <th scope="col">gender</th>
-          <th scope="col">seat_preference</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
   </body>
 </html>
