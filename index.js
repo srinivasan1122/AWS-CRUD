@@ -1,14 +1,5 @@
-function save() {
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
-
-  if (username == "sret" && password == "123") {
-    window.location.href = "./index1.html";
-    // alert("login successfully")
-  }
-  else {
-    alert("Incorrect username or password.");
-  }
+function openTicketModal() {
+  $('#ticketModal').modal('show');
 }
 
 // function save1(){
@@ -17,6 +8,19 @@ function save() {
 //   window.location.href="./index.html";
 //   // window.open("index2.html", "Sign-in", "width=400,height=300");
 // }
+function showDateTime() {
+  var date = new Date();
+  console.log(date);
+  var formattedDate = date.toLocaleDateString();
+  var formattedTime = date.toLocaleTimeString();
+
+  var formattedDateTime = formattedDate + " " + formattedTime;
+  document.getElementById("time").innerHTML = formattedDateTime;
+  console.log(formattedDateTime);
+}
+setInterval(showDateTime, 1000); // update every second
+
+
 
 
 const userDetails = {
@@ -73,8 +77,7 @@ function saveData() {
 
 
 $(document).ready(function () {
-  // Initialize DataTable
-  getData();
+    getData();
 
 });
 
@@ -97,7 +100,7 @@ const generateTable = (jsonData) => {
       { data: "seat" },
       {
         "render": function (data, type, full) {
-          return '<button data-id=' + full.user_id + ' onclick="getId(this)" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Edit</button> <button data-id=' + full.user_id + ' onclick="delId(this)" class="btn btn-outline-danger btn-sm">Delete</button>';
+          return '<button data-id=' + full.user_id + ' onclick="getId(this)" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#ticketModal">Edit</button> <button data-id=' + full.user_id + ' onclick="delId(this)" class="btn btn-outline-danger btn-sm">Delete</button>';
         },
       },
     ],
