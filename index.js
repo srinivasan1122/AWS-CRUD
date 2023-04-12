@@ -10,13 +10,11 @@ function openTicketModal() {
 // }
 function showDateTime() {
   var date = new Date();
-  console.log(date);
   var formattedDate = date.toLocaleDateString();
   var formattedTime = date.toLocaleTimeString();
 
   var formattedDateTime = formattedDate + " " + formattedTime;
   document.getElementById("time").innerHTML = formattedDateTime;
-  console.log(formattedDateTime);
 }
 setInterval(showDateTime, 1000); // update every second
 
@@ -48,11 +46,6 @@ function saveData() {
   userDetails.gender = document.getElementById("gender").value;
   userDetails.seat = document.getElementById("seat").value;
 
-  // console.log(userDetails);
-  // console.log(document.getElementById("UI1").value);
-
-
-
   if (document.getElementById("UI1").value) {
     update()
   }
@@ -66,11 +59,10 @@ function saveData() {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         // table.destroy();
-        getData();
+      getData();
       }
-      )
+      ) 
   }
 }
 
@@ -82,7 +74,6 @@ $(document).ready(function () {
 });
 
 const generateTable = (jsonData) => {
-  console.log("JD", jsonData);
 
   $.fn.dataTable.ext.errMode = 'none';
 
@@ -100,7 +91,7 @@ const generateTable = (jsonData) => {
       { data: "seat" },
       {
         "render": function (data, type, full) {
-          return '<button data-id=' + full.user_id + ' onclick="getId(this)" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#ticketModal">Edit</button> <button data-id=' + full.user_id + ' onclick="delId(this)" class="btn btn-outline-danger btn-sm">Delete</button>';
+          return '<button data-id=' + full.user_id + ' onclick="getId(this)" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#ticketModal">Update</button> <button data-id=' + full.user_id + ' onclick="delId(this)" class="btn btn-outline-danger btn-sm">Cancel</button>';
         },
       },
     ],
@@ -110,12 +101,10 @@ const generateTable = (jsonData) => {
 }
 
 function getId(id) {
-  console.log("id", id);
   var userId = id.getAttribute("data-id");
 
   let userData = tableData.filter(element => element.user_id == userId);
 
-  console.log("userData", userData);
 
   document.getElementById("from").value = userData[0].from;
   document.getElementById("to").value = userData[0].to;
@@ -129,12 +118,9 @@ function getId(id) {
 }
 
 function delId(id) {
-  console.log("Did", id);
   var userId = id.getAttribute("data-id");
   let userData = tableData.filter(element => element.user_id == userId);
 
-  console.log("userData", userData);
-  console.log("not hidden", userDetails);
 
   fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
     method: 'DELETE',
@@ -145,10 +131,13 @@ function delId(id) {
   })
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
       getData();
     });
+    // Show the Bootstrap modal
+    $('#deleteModal').modal('show');
 
+    // Set the message in the modal
+    $('#deleteMessage').text('Your ticket has been cancelled successfully');
 }
 
 
@@ -173,23 +162,19 @@ async function getData() {
 
       tableData = data.products;
 
-      console.log('tableData', tableData);
       let statactive = tableData.filter(element => element.user_status == "Active");
       generateTable(statactive);
       // $("#myTable").DataTable().rows.add(data.body.Getalldata).draw();
     })
     .catch((error) => {
-      console.error("Error fetching data:", error);
     });
 }
 
 function update() {
   userDetails.user_id = document.getElementById("UI1").value;
 
-  console.log("not hidden", userDetails);
 
   let userData = tableData.filter(element => element.user_id == userId);
-  console.log(userData,"userdata");
 
   fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
     method: 'PATCH',
@@ -200,7 +185,6 @@ function update() {
   })
     .then((response) => response.json())
     .then((json) => {
-      console.log(json)
       // table.destroy();
       getData();
     });
