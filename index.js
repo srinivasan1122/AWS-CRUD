@@ -10,13 +10,22 @@ function openTicketModal() {
 // }
 function showDateTime() {
   var date = new Date();
-  var formattedDate = date.toLocaleDateString();
+  var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
+  var formattedDate = new Intl.DateTimeFormat('en-GB', options).format(date);
   var formattedTime = date.toLocaleTimeString();
 
   var formattedDateTime = formattedDate + " " + formattedTime;
   document.getElementById("time").innerHTML = formattedDateTime;
 }
-setInterval(showDateTime, 1000); // update every second
+setInterval(showDateTime, 1000);
+
+// Check if the user has already visited this page
+if (window.history && window.history.pushState) {
+  window.history.pushState('forward', null, ''); // Push a dummy state so that the user can't go back
+  window.addEventListener('popstate', function() {
+    window.history.pushState('forward', null, ''); // Push another dummy state when the user tries to go back
+  });
+}
 
 
 
@@ -36,7 +45,11 @@ let table, tableData;
 var userId;
 
 function saveData() {
-
+  Swal.fire(
+    'Good job!',
+    'Your ticket has been booked',
+    'success'
+  )
   userDetails.from = document.getElementById("from").value;
   userDetails.to = document.getElementById("to").value;
   userDetails.date = document.getElementById("date").value;
@@ -121,8 +134,22 @@ function delId(id) {
   var userId = id.getAttribute("data-id");
   let userData = tableData.filter(element => element.user_id == userId);
 
-
-  fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Deleted!',
+        'Your ticket has been cancelled!..',
+        'success'
+      )
+      fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
     method: 'DELETE',
     body: JSON.stringify({user_id: userId}),
     headers: {
@@ -133,27 +160,40 @@ function delId(id) {
     .then((json) => {
       getData();
     });
-    // Show the Bootstrap modal
-    $('#deleteModal').modal('show');
-
-    // Set the message in the modal
-    $('#deleteMessage').text('Your ticket has been cancelled successfully');
+    }
+  })
+  
+    
 }
 
+function logout(){
+  localStorage.clear();
+  window.location.href = "./index.html";
+}
 
 async function getData() {
 
-  // table = $("#myTable").DataTable({
-  //   columns: [
-  //     { data: "user_id" },
-  //     { data: "last_name" },
-  //     { data: "first_name" },
+  var token = localStorage.getItem("accesstoken");
 
-  //   ],
-  //   "bDestory":true
-  // });
+console.log(token);
 
-
+if(token==null){
+  Swal.fire({
+    title: 'login again',
+    icon: 'warning',
+    showCancelButton: false,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Call the logout function here
+        logout();
+      }
+    });
+    
+}
+else{
   // Fetch data and add to DataTable
   await fetch("https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/products")
     .then((response) => response.json())
@@ -170,7 +210,16 @@ async function getData() {
     });
 }
 
+
+
+}
+
 function update() {
+  Swal.fire(
+    'updated!',
+    'Your ticket has been updated',
+    'success'
+  )
   userDetails.user_id = document.getElementById("UI1").value;
 
 
