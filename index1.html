@@ -38,7 +38,7 @@
   </head>
   <body style="background:radial-gradient(ellipse at center, rgba(255,254,234,1) 0%, rgba(255,254,234,1) 35%, #B7E8EB 100%);
 	overflow: hidden;">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"><i class="fa-solid fa-train"></i>IRCTC RAIL</a>
         <button
@@ -230,7 +230,7 @@
 
     <div class="table-responsive container">
       <table class="table table-hover" id="myTable">
-        <thead class="thead-dark">
+        <thead class="my-custom-thead">
           <tr>
             <!-- <th scope="col">user_id</th> -->
             <th scope="col">From</th>
@@ -246,6 +246,7 @@
         </thead>
         <tbody></tbody>
       </table>
+    </div>
     </div><br><br>
   </body>
       
@@ -271,7 +272,7 @@
       </div>
     </div>
 
-    <footer class="bg-dark py-3">
+    <footer style="background-color: #008ecf;" class="py-3">
       <div class="container">
         <div class="row">
           <div class="col-md-6 text-center text-md-start">
@@ -279,9 +280,9 @@
           </div>
           <div class="col-md-6 text-center text-md-end">
             <ul class="list-inline mb-0">
-              <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-              <li class="list-inline-item"><a href="#">Terms of Use</a></li>
-              <li class="list-inline-item"><a href="#">Site Map</a></li>
+              <li class="list-inline-item"><a href="#" style="color: #ffffff;">Privacy Policy</a></li>
+              <li class="list-inline-item"><a href="#" style="color: #ffffff;">Terms of Use</a></li>
+              <li class="list-inline-item"><a href="#" style="color: #ffffff;">Site Map</a></li>
             </ul>
           </div>
         </div>
@@ -318,6 +319,15 @@
             background-position: 100% 0;
         }
     }
+
+    .custom-navbar {
+            background-color: #008ecf;
+        }
+        
+    .my-custom-thead {
+            background-color: #008ecf;
+            color: #ffffff;
+  }
 </style>
 
 </html>
