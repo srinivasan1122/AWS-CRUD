@@ -4,6 +4,7 @@
     <title>Home</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css"
@@ -12,7 +13,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="./style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
@@ -56,6 +56,7 @@
               />
             </label>
             <input id="button" type="button" onclick="login()" value="Log In" />
+            <div id="loading" class="loader" style="display:none;"></div>
           </form>
         </div>
         <div class="overlay-container">
@@ -74,14 +75,15 @@
         </div>
       </div>
     </section>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
     <script>
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
       const signUpButton = document.getElementById("signUp");
       const signInButton = document.getElementById("signIn");
       const container = document.getElementById("container");
 
       signUpButton.addEventListener("click", () =>
         container.classList.add("right-panel-active")
+
       );
 
       signInButton.addEventListener("click", () =>
@@ -89,13 +91,20 @@
       );
 
       function login() {
+        // Show loading symbol
+        document.getElementById("loading").style.display = "block";
+
+        // Delay hiding the loading symbol for 3 seconds
+        setTimeout(function() {
+          document.getElementById("loading").style.display = "none";
+        }, 3000);
+
         const loginUser = {
           username: "",
           password: "",
         };
         loginUser.username = document.getElementById("username").value;
         loginUser.password = document.getElementById("password").value;
-        console.log(loginUser);
         fetch(
           "https://5fnqbknesi.execute-api.ap-south-1.amazonaws.com/dev/login",
           {
@@ -117,7 +126,7 @@ localStorage.setItem('accesstoken', token);
 // alert(localStorage.getItem('testkey'));
 		
 			if (json.token==undefined) {
-          alert("Username or password is incorrect")
+        swal ( "Oops" ,  "username or password is wrong!" ,  "error" );
         } else {
 			window.location.href = "./index1.html";
         }
@@ -145,13 +154,31 @@ localStorage.setItem('accesstoken', token);
           }
         )
           .then((response) => response.json())
-          .then((json) => {});
+          .then((json) => {
+            setTimeout(function() {
+        swal("Great!", "You have created an irctc account!", "success");
+      }, 500);
+          });  
       }
     </script>
   </body>
 </html>
 
 <style>
+  .loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
   html,
   body {
     width: 100%;

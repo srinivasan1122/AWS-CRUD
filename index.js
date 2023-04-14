@@ -19,14 +19,6 @@ function showDateTime() {
 }
 setInterval(showDateTime, 1000);
 
-// Check if the user has already visited this page
-if (window.history && window.history.pushState) {
-  window.history.pushState('forward', null, ''); // Push a dummy state so that the user can't go back
-  window.addEventListener('popstate', function() {
-    window.history.pushState('forward', null, ''); // Push another dummy state when the user tries to go back
-  });
-}
-
 
 
 
@@ -46,7 +38,7 @@ var userId;
 
 function saveData() {
   Swal.fire(
-    'Good job!',
+    'Ticket status!',
     'Your ticket has been booked',
     'success'
   )
@@ -141,11 +133,11 @@ function delId(id) {
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
+    confirmButtonText: 'Yes, cancel ticket!'
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire(
-        'Deleted!',
+        'Ticket status!',
         'Your ticket has been cancelled!..',
         'success'
       )
@@ -175,7 +167,6 @@ async function getData() {
 
   var token = localStorage.getItem("accesstoken");
 
-console.log(token);
 
 if(token==null){
   Swal.fire({
@@ -216,7 +207,7 @@ else{
 
 function update() {
   Swal.fire(
-    'updated!',
+    'Ticket status!',
     'Your ticket has been updated',
     'success'
   )
