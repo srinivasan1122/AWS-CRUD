@@ -37,7 +37,7 @@
         </div>
         <div class="form-container sign-in-container">
           <form action="#">
-            <h1>log in</h1>
+            <h1>log In</h1>
 
             <label>
               <input
@@ -55,16 +55,16 @@
                 value=""
               />
             </label>
-            <input id="button" type="button" onclick="login()" value="Log In" />
+            <button style="margin-top: 9px" type="button" onclick="login()">log in</button>
             <div id="loading" class="loader" style="display:none;"></div>
           </form>
         </div>
         <div class="overlay-container">
           <div class="overlay">
             <div class="overlay-panel overlay-left">
-              <h1>Log in</h1>
+              <h1>Log In</h1>
               <p>Log in here if you already have an account</p>
-              <button class="ghost mt-5" id="signIn">Log In</button>
+              <button class="ghost mt-5" id="logIn">Log In</button>
             </div>
             <div class="overlay-panel overlay-right">
               <h1>IRCTC</h1>
@@ -78,7 +78,7 @@
     <script>
       src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
       const signUpButton = document.getElementById("signUp");
-      const signInButton = document.getElementById("signIn");
+      const logInButton = document.getElementById("logIn");
       const container = document.getElementById("container");
 
       signUpButton.addEventListener("click", () =>
@@ -86,7 +86,7 @@
 
       );
 
-      signInButton.addEventListener("click", () =>
+      logInButton.addEventListener("click", () =>
         container.classList.remove("right-panel-active")
       );
 
@@ -305,19 +305,7 @@ localStorage.setItem('accesstoken', token);
     text-transform: uppercase;
     transition: transform 80ms ease-in;
   }
-  #button {
-    border-radius: 50px;
-    box-shadow: 0 1px 1px;
-    border: 1px solid #008ecf;
-    background: #008ecf;
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-  }
+  
 
   button:active {
     transform: scale(0.95);

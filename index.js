@@ -53,6 +53,8 @@ function saveData() {
 
   if (document.getElementById("UI1").value) {
     update()
+    var element = document.getElementById("form_id");
+    element.reset()
   }
   else {
     fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
@@ -225,30 +227,31 @@ function update() {
   })
     .then((response) => response.json())
     .then((json) => {
+      $("#UI1").val("");
       // table.destroy();
       getData();
     });
 
 }
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
+// // Example starter JavaScript for disabling form submissions if there are invalid fields
+// (function () {
+//   'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
-  let a = document.getElementById('btn-save');
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      a.addEventListener('click', function (event) {
-        alert()
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+//   // Fetch all the forms we want to apply custom Bootstrap validation styles to
+//   var forms = document.querySelectorAll('.needs-validation')
+//   let a = document.getElementById('btn-save');
+//   // Loop over them and prevent submission
+//   Array.prototype.slice.call(forms)
+//     .forEach(function (form) {
+//       a.addEventListener('click', function (event) {
+//         alert()
+//         if (!form.checkValidity()) {
+//           event.preventDefault()
+//           event.stopPropagation()
+//         }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})
+//         form.classList.add('was-validated')
+//       }, false)
+//     })
+// })
