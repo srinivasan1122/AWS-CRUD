@@ -20,7 +20,7 @@
     <section>
       <div class="container" id="container">
         <div class="form-container sign-up-container">
-          <form action="#">
+          <form id="form-signup">
             <h1>Sign Up</h1>
 
             <label>
@@ -32,11 +32,12 @@
             <label>
               <input type="password" id="password1" placeholder="Password" />
             </label>
-            <button style="margin-top: 9px" onclick="signup()">Sign Up</button>
+            <button style="margin-top: 9px" type="button" onclick="signup()">Sign Up</button>
+            <div id="loading" class="loader" style="display:none;"></div>
           </form>
         </div>
         <div class="form-container sign-in-container">
-          <form action="#">
+          <form id="form-login">
             <h1>log In</h1>
 
             <label>
@@ -120,7 +121,7 @@
 
 
             var token = json.token;
-
+console.log(token);
 localStorage.setItem('accesstoken', token);
 
 // alert(localStorage.getItem('testkey'));
@@ -131,10 +132,18 @@ localStorage.setItem('accesstoken', token);
 			window.location.href = "./index1.html";
         }
           });
-        
+      var signin = document.getElementById("form-login");
+      signin.reset()
       }
 
       function signup() {
+        // Show loading symbol
+        document.getElementById("loading").style.display = "block";
+
+        // Delay hiding the loading symbol for 3 seconds
+        setTimeout(function() {
+          document.getElementById("loading").style.display = "none";
+        }, 3000);
         const signin = {
           name: "",
           username: "",
@@ -158,6 +167,8 @@ localStorage.setItem('accesstoken', token);
             setTimeout(function() {
         swal("Great!", "You have created an irctc account!", "success");
       }, 500);
+      var reg = document.getElementById("form-signup");
+      reg.reset()
           });  
       }
     </script>

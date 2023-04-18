@@ -1,4 +1,7 @@
 function openTicketModal() {
+  var element = document.getElementById("form_id");
+    element.reset()
+  $("#UI1").val("");
   $('#ticketModal').modal('show');
 }
 
