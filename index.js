@@ -2,15 +2,12 @@ function openTicketModal() {
   var element = document.getElementById("form_id");
     element.reset()
   $("#UI1").val("");
+  const today = new Date().toISOString().split('T')[0];
+  // Set the min attribute of the input element to today's date
+  document.getElementById("date").setAttribute("min", today);
   $('#ticketModal').modal('show');
 }
 
-// function save1(){
-//   var username = document.getElementById("username1").value;
-//   var password = document.getElementById("password1").value;
-//   window.location.href="./index.html";
-//   // window.open("index2.html", "Sign-in", "width=400,height=300");
-// }
 function showDateTime() {
   var date = new Date();
   var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
@@ -40,41 +37,65 @@ let table, tableData;
 var userId;
 
 function saveData() {
-  Swal.fire(
-    'Ticket status!',
-    'Your ticket has been booked',
-    'success'
-  )
-  userDetails.from = document.getElementById("from").value;
-  userDetails.to = document.getElementById("to").value;
-  userDetails.date = document.getElementById("date").value;
-  userDetails.first_name = document.getElementById("firstName").value;
-  userDetails.last_name = document.getElementById("lastName").value;
-  userDetails.age = document.getElementById("age").value;
-  userDetails.gender = document.getElementById("gender").value;
-  userDetails.seat = document.getElementById("seat").value;
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+  const date = document.getElementById("date").value;
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const age = document.getElementById("age").value;
+  const gender = document.getElementById("gender").value;
+  const seat = document.getElementById("seat").value;
 
-  if (document.getElementById("UI1").value) {
-    update()
-    var element = document.getElementById("form_id");
-    element.reset()
-  }
+  if (from === "" || to === "" || date === "" || firstName === "" || lastName === "" || age === "" || gender === "" || seat === "") {
+    Swal.fire(
+      'Oops...',
+      'Please fill all the required fields!',
+      'error'
+    );
+  }else if (from === to) {
+    Swal.fire(
+      'Oops...',
+      'From and to cannot be the same!',
+      'error'
+    );
+  } 
   else {
-    fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
-      method: 'POST',
-      body: JSON.stringify(userDetails),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        // table.destroy();
-      getData();
-      }
-      ) 
+    Swal.fire(
+      'Ticket status!',
+      'Your ticket has been booked',
+      'success'
+    );
+    userDetails.from = from;
+    userDetails.to = to;
+    userDetails.date = date;
+    userDetails.first_name = firstName;
+    userDetails.last_name = lastName;
+    userDetails.age = age;
+    userDetails.gender = gender;
+    userDetails.seat = seat;
+
+    if (document.getElementById("UI1").value) {
+      update();
+      var element = document.getElementById("form_id");
+      element.reset();
+    }
+    else {
+      fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
+        method: 'POST',
+        body: JSON.stringify(userDetails),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          getData();
+        }
+        ) 
+    }
   }
 }
+
 
 
 
@@ -236,25 +257,3 @@ function update() {
     });
 
 }
-
-// // Example starter JavaScript for disabling form submissions if there are invalid fields
-// (function () {
-//   'use strict'
-
-//   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//   var forms = document.querySelectorAll('.needs-validation')
-//   let a = document.getElementById('btn-save');
-//   // Loop over them and prevent submission
-//   Array.prototype.slice.call(forms)
-//     .forEach(function (form) {
-//       a.addEventListener('click', function (event) {
-//         alert()
-//         if (!form.checkValidity()) {
-//           event.preventDefault()
-//           event.stopPropagation()
-//         }
-
-//         form.classList.add('was-validated')
-//       }, false)
-//     })
-// })

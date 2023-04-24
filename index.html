@@ -33,7 +33,7 @@
               <input type="password" id="password1" placeholder="Password" />
             </label>
             <button style="margin-top: 9px" type="button" onclick="signup()">Sign Up</button>
-            <div id="loading" class="loader" style="display:none;"></div>
+            <div id="signuploading" class="loader" style="display:none;"></div>
           </form>
         </div>
         <div class="form-container sign-in-container">
@@ -57,7 +57,7 @@
               />
             </label>
             <button style="margin-top: 9px" type="button" onclick="login()">log in</button>
-            <div id="loading" class="loader" style="display:none;"></div>
+            <div id="loginloading" class="loader" style="display:none;"></div>
           </form>
         </div>
         <div class="overlay-container">
@@ -92,85 +92,106 @@
       );
 
       function login() {
-        // Show loading symbol
-        document.getElementById("loading").style.display = "block";
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
 
-        // Delay hiding the loading symbol for 3 seconds
-        setTimeout(function() {
-          document.getElementById("loading").style.display = "none";
-        }, 3000);
+  // Check if username and password are not empty
+  if (usernameInput.value.trim() === "" || passwordInput.value.trim() === "") {
+    swal("Error", "Please enter both username and password", "error");
+    return; // Stop function execution if there is an error
+  }
 
-        const loginUser = {
-          username: "",
-          password: "",
-        };
-        loginUser.username = document.getElementById("username").value;
-        loginUser.password = document.getElementById("password").value;
-        fetch(
-          "https://5fnqbknesi.execute-api.ap-south-1.amazonaws.com/dev/login",
-          {
-            method: "POST",
-            body: JSON.stringify(loginUser),
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((json) => {
+  // Show loading symbol
+  document.getElementById("loginloading").style.display = "block";
 
+  // Delay hiding the loading symbol for 3 seconds
+  setTimeout(function () {
+    document.getElementById("loginloading").style.display = "none";
+  }, 3000);
 
-            var token = json.token;
-console.log(token);
-localStorage.setItem('accesstoken', token);
+  const loginUser = {
+    username: usernameInput.value,
+    password: passwordInput.value,
+  };
 
-// alert(localStorage.getItem('testkey'));
-		
-			if (json.token==undefined) {
-        swal ( "Oops" ,  "username or password is wrong!" ,  "error" );
-        } else {
-			window.location.href = "./index1.html";
-        }
-          });
-      var signin = document.getElementById("form-login");
-      signin.reset()
+  fetch("https://5fnqbknesi.execute-api.ap-south-1.amazonaws.com/dev/login", {
+    method: "POST",
+    body: JSON.stringify(loginUser),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      var token = json.token;
+      localStorage.setItem("accesstoken", token);
+
+      if (json.token == undefined) {
+        swal("Oops", "Username or password is wrong!", "error");
+      } else {
+        window.location.href = "./index1.html";
       }
+    });
+
+  var signin = document.getElementById("form-login");
+  signin.reset();
+}
+
 
       function signup() {
-        // Show loading symbol
-        document.getElementById("loading").style.display = "block";
+  // Validate form
+  const name = document.getElementById("name").value.trim();
+  const username = document.getElementById("username1").value.trim();
+  const password = document.getElementById("password1").value.trim();
 
-        // Delay hiding the loading symbol for 3 seconds
-        setTimeout(function() {
-          document.getElementById("loading").style.display = "none";
-        }, 3000);
-        const signin = {
-          name: "",
-          username: "",
-          password: "",
-        };
-        signin.name = document.getElementById("name").value;
-        signin.username = document.getElementById("username1").value;
-        signin.password = document.getElementById("password1").value;
-        fetch(
-          "https://5fnqbknesi.execute-api.ap-south-1.amazonaws.com/dev/register",
-          {
-            method: "POST",
-            body: JSON.stringify(signin),
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((json) => {
-            setTimeout(function() {
+  if (!name || !username || !password) {
+    // One or more fields are empty
+    swal("Oops", "Please fill all required fields", "error");
+    return;
+  }
+
+  if (username.length < 4 || password.length < 4) {
+    // Username and password must be at least 4 characters long
+    swal("Oops", "Username and password must be at least 4 characters long", "error");
+    return;
+  }
+
+  // Show loading symbol
+  document.getElementById("signuploading").style.display = "block";
+
+  // Delay hiding the loading symbol for 3 seconds
+  setTimeout(function() {
+    document.getElementById("signuploading").style.display = "none";
+  }, 3000);
+
+  const signin = {
+    name,
+    username,
+    password,
+  };
+  fetch(
+    "https://5fnqbknesi.execute-api.ap-south-1.amazonaws.com/dev/register",
+    {
+      method: "POST",
+      body: JSON.stringify(signin),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      setTimeout(function() {
         swal("Great!", "You have created an irctc account!", "success");
       }, 500);
       var reg = document.getElementById("form-signup");
-      reg.reset()
-          });  
-      }
+      reg.reset();
+    })
+    .catch((error) => {
+      swal("Oops", "An error occurred while processing your request", "error");
+    });
+}
+
     </script>
   </body>
 </html>
