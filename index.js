@@ -1,3 +1,5 @@
+const { API_URL } = require('./config');
+
 require('dotenv').config();
 function openTicketModal() {
   var element = document.getElementById("form_id");
@@ -81,7 +83,7 @@ function saveData() {
       element.reset();
     }
     else {
-      fetch(process.env.API_URL, {
+      fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify(userDetails),
         headers: {
@@ -168,7 +170,7 @@ function delId(id) {
         'Your ticket has been cancelled!..',
         'success'
       )
-      fetch(process.env.API_URL, {
+      fetch(API_URL, {
     method: 'DELETE',
     body: JSON.stringify({user_id: userId}),
     headers: {
@@ -213,7 +215,7 @@ if(token==null){
 }
 else{
   // Fetch data and add to DataTable
-  await fetch(process.env.API_URL)
+  await fetch(API_URL)
     .then((response) => response.json())
     .then((data) => {
       // Add data to DataTable
@@ -243,7 +245,7 @@ function update() {
 
   let userData = tableData.filter(element => element.user_id == userId);
 
-  fetch(process.env.API_URL, {
+  fetch(API_URL, {
     method: 'PATCH',
     body: JSON.stringify(userDetails),
     headers: {
