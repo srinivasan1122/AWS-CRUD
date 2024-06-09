@@ -80,7 +80,7 @@ function saveData() {
       element.reset();
     }
     else {
-      fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
+      fetch(process.env.API_URL, {
         method: 'POST',
         body: JSON.stringify(userDetails),
         headers: {
@@ -167,7 +167,7 @@ function delId(id) {
         'Your ticket has been cancelled!..',
         'success'
       )
-      fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
+      fetch(process.env.API_URL, {
     method: 'DELETE',
     body: JSON.stringify({user_id: userId}),
     headers: {
@@ -212,7 +212,7 @@ if(token==null){
 }
 else{
   // Fetch data and add to DataTable
-  await fetch("https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/products")
+  await fetch(process.env.API_URL)
     .then((response) => response.json())
     .then((data) => {
       // Add data to DataTable
@@ -242,7 +242,7 @@ function update() {
 
   let userData = tableData.filter(element => element.user_id == userId);
 
-  fetch('https://nj7jgykfh7.execute-api.ap-south-1.amazonaws.com/prod/product', {
+  fetch(process.env.API_URL, {
     method: 'PATCH',
     body: JSON.stringify(userDetails),
     headers: {
