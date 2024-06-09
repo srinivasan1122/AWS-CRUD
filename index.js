@@ -1,3 +1,4 @@
+require('dotenv').config();
 function openTicketModal() {
   var element = document.getElementById("form_id");
     element.reset()
